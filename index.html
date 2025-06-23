@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soggie - Milanesas de Soja Caseras</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin+Sketch:wght@400;700&display=swap" rel="stylesheet">
     <style>
     
     @font-face {
@@ -23,7 +24,7 @@
         }
 
         body {
-            font-family: 'MiFuentePersonalizada';
+            font-family: 'MiFuentePersonalizada', sans-serif;
             line-height: 1.6;
             color: #2c3e2d;
             background: linear-gradient(135deg, #f5f1e8 0%, #ede4d3 100%);
@@ -82,6 +83,86 @@
             transform: translateY(-2px);
         }
 
+        /* Burger Menu */
+        .burger-menu {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 21px;
+            z-index: 101;
+        }
+
+        .burger-menu span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: white;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+        }
+
+        /* Mobile Nav */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+            box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+            z-index: 100;
+            transition: right 0.3s ease;
+            padding: 80px 20px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .mobile-nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            padding: 0.8rem;
+            display: block;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .mobile-nav a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
         /* Hero Section */
         .hero {
             background: url(img/madera.jpg) center/cover no-repeat;
@@ -130,6 +211,12 @@
             margin-left: auto;
             margin-right: auto;
             animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        .hero img {
+            max-width: 500px;
+            height: auto;
+            width: 100%;
         }
 
         @keyframes slideInUp {
@@ -294,6 +381,8 @@
 
         .product-image img{
             height: 200px;
+            max-width: 100%;
+            object-fit: contain;
         }
 
         .product-card h3 {
@@ -347,11 +436,11 @@
 
         .recipe-card img {
             width: 100%;
-            height: 38%;
+            height: 200px;
             object-fit: cover;
             border-radius: 10px;
             margin-bottom: 1rem;
-}
+        }
 
         .recipe-ingredients {
             margin: 1rem 0;
@@ -425,6 +514,30 @@
             font-size: 1.3rem;
         }
 
+        .feedback {
+            background: #fdf6e3;
+            padding: 3rem 1rem;
+            text-align: center;
+        }
+
+        .feedback p {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #228B22;
+        }
+
+        .feedback textarea {
+            width: 90%;
+            max-width: 600px;
+            padding: 1rem;
+            border-radius: 10px;
+            border: 2px solid #8B4513;
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
         /* Footer */
         footer {
             background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
@@ -434,37 +547,248 @@
             margin-top: 4rem;
         }
 
-        /* Responsive */
+        header img{
+           height: 80px;
+           padding: 5px;
+           max-width: 100%;
+        }
+
+        /* Responsive Design - Mobile First */
         @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
+            .container {
+                padding: 0 15px;
             }
 
-            nav ul {
-                flex-direction: column;
+            /* Header Mobile */
+            .header-content {
+                flex-direction: row;
                 gap: 1rem;
-                text-align: center;
+                padding: 0.5rem 0;
+            }
+
+            .logo-space {
+                width: 150px;
+                height: 50px;
+            }
+
+            header img {
+                height: 60px;
+            }
+
+            /* Burger Menu Styles */
+            .burger-menu {
+                display: flex;
+            }
+
+            nav.desktop-nav {
+                display: none;
+            }
+
+            /* Hero Mobile */
+            .hero {
+                padding: 2rem 0;
             }
 
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+                margin-bottom: 1.5rem;
+                padding: 0 1rem;
+            }
+
+            .hero img {
+                max-width: 300px;
+            }
+
+            .cta-button {
+                padding: 0.8rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            /* Sections Mobile */
+            section {
+                padding: 2rem 0;
+                margin: 1rem 0;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+                margin-bottom: 2rem;
+            }
+
+            /* About Mobile */
+            .about {
+                padding: 2rem 1.5rem;
             }
 
             .about-content {
                 grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-text {
+                font-size: 1rem;
+            }
+
+            .about-highlights {
+                padding: 1.5rem;
+            }
+
+            /* Products Mobile */
+            .products {
+                padding: 2rem 1.5rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .product-card {
+                padding: 1.5rem;
+            }
+
+            .product-image {
+                height: 180px;
+            }
+
+            .product-image img {
+                height: 180px;
+            }
+
+            .product-card h3 {
+                font-size: 1.2rem;
+            }
+
+            /* Recipes Mobile */
+            .recipes {
+                padding: 2rem 1.5rem;
+            }
+
+            .recipes-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .recipe-card {
+                padding: 1.5rem;
+            }
+
+            .recipe-card img {
+                height: 150px;
+            }
+
+            .recipe-card h3 {
+                font-size: 1.2rem;
+            }
+
+            .recipe-ingredients {
+                font-size: 0.9rem;
+            }
+
+            /* Mission Mobile */
+            .mission {
+                padding: 2rem 1.5rem;
+            }
+
+            .mission-content {
+                font-size: 1rem;
+            }
+
+            .mission-values {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .mission-value {
+                padding: 1.5rem;
+            }
+
+            .mission-value-icon {
+                font-size: 2.5rem;
+            }
+
+            /* Feedback Mobile */
+            .feedback {
+                padding: 2rem 1rem;
+            }
+
+            .feedback p {
+                font-size: 1.2rem;
+            }
+
+            .feedback textarea {
+                width: 95%;
+                padding: 0.8rem;
+            }
+
+            /* Footer Mobile */
+            footer {
+                padding: 1.5rem 0;
+            }
+
+            footer p {
+                font-size: 0.9rem;
+                padding: 0 1rem;
+            }
+        }
+
+        /* Extra Small Screens */
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .hero img {
+                max-width: 250px;
             }
 
             .section-title {
                 font-size: 2rem;
             }
 
-            .recipes-grid {
-                grid-template-columns: 1fr;
+            .about, .products, .recipes, .mission {
+                padding: 1.5rem 1rem;
             }
 
-            .mission-values {
-                grid-template-columns: 1fr;
+            .product-card, .recipe-card, .mission-value {
+                padding: 1rem;
+            }
+
+            .recipe-ingredients {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Very Small Screens */
+        @media (max-width: 320px) {
+            .container {
+                padding: 0 10px;
+            }
+
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .about, .products, .recipes, .mission {
+                padding: 1rem 0.8rem;
+            }
+
+            .cta-button {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.9rem;
             }
         }
 
@@ -473,35 +797,24 @@
             scroll-behavior: smooth;
         }
 
-        header img{
-           height: 80px;
-           padding: 5px;
+        /* Touch improvements for mobile */
+        @media (max-width: 768px) {
+            .cta-button, nav a {
+                min-height: 44px;
+                min-width: 44px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .product-card:hover, .recipe-card:hover {
+                transform: none;
+            }
+
+            .product-card:active, .recipe-card:active {
+                transform: scale(0.98);
+            }
         }
-
-        .feedback {
-    background: #fdf6e3;
-    padding: 3rem 1rem;
-    text-align: center;
-}
-
-.feedback p {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: #228B22;
-}
-
-.feedback textarea {
-    width: 90%;
-    max-width: 600px;
-    padding: 1rem;
-    border-radius: 10px;
-    border: 2px solid #8B4513;
-    font-family: inherit;
-    font-size: 1rem;
-    resize: vertical;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
     </style>
 </head>
 <body>
@@ -511,7 +824,12 @@
                 <div class="logo-space">
                     <img src="img/soggie marca.png" alt="logo de soggie">
                 </div>
-                <nav>
+                <div class="burger-menu" id="burger-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <nav class="desktop-nav">
                     <ul>
                         <li><a href="#inicio">Inicio</a></li>
                         <li><a href="#quienes-somos">Quiénes Somos</a></li>
@@ -523,6 +841,18 @@
             </div>
         </div>
     </header>
+
+    <!-- Mobile Navigation -->
+    <div class="overlay" id="overlay"></div>
+    <nav class="mobile-nav" id="mobile-nav">
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#quienes-somos">Quiénes Somos</a></li>
+            <li><a href="#productos">Productos</a></li>
+            <li><a href="#recetas">Recetas</a></li>
+            <li><a href="#mision">Misión</a></li>
+        </ul>
+    </nav>
 
     <main>
         <section id="inicio" class="hero">
@@ -818,6 +1148,45 @@
 
         textarea.value = ""; // Esto borra el contenido
     });
+
+    // Burger Menu JavaScript
+const burgerMenu = document.getElementById('burger-menu');
+const mobileNav = document.getElementById('mobile-nav');
+const overlay = document.getElementById('overlay');
+
+// Función para abrir/cerrar el menú
+function toggleMenu() {
+    mobileNav.classList.toggle('active');
+    overlay.classList.toggle('active');
+    burgerMenu.classList.toggle('active');
+    
+    // Prevenir scroll del body cuando el menú está abierto
+    document.body.style.overflow = mobileNav.classList.contains('active') ? 'hidden' : '';
+}
+
+// Función para cerrar el menú
+function closeMenu() {
+    mobileNav.classList.remove('active');
+    overlay.classList.remove('active');
+    burgerMenu.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Event listeners
+burgerMenu.addEventListener('click', toggleMenu);
+overlay.addEventListener('click', closeMenu);
+
+// Cerrar menú al hacer click en los enlaces
+document.querySelectorAll('.mobile-nav a').forEach(link => {
+    link.addEventListener('click', closeMenu);
+});
+
+// Cerrar menú con la tecla ESC
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && mobileNav.classList.contains('active')) {
+        closeMenu();
+    }
+});
     </script>
 </body>
 </html>
